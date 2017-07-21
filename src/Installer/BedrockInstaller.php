@@ -53,6 +53,10 @@ class BedrockInstaller extends WordPressInstaller
             file_get_contents($this->props->fullPath('.env.example'))
         );
 
+        if ($this->props->option('dbprefix')) {
+            $env_contents = str_replace('# DB_PREFIX=wp_', 'DB_PREFIX=' . $this->props->option('dbprefix'), $env_contents);
+        }
+
         file_put_contents($this->props->fullPath('.env'), $env_contents);
     }
 }
